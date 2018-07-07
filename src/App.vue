@@ -10,7 +10,7 @@
     <div class="hello pannel" v-if="channelIds.length === 0">
       <h1>TwitDeck!</h1>
       <p>왼쪽의 <strong>[패널 설정]</strong>을 눌러 채널을 추가해주세요.</p>
-      <p><a href="https://github.com/HelloDHLyn/TwitDeck">GitHub</a></p>
+      <p><a href="https://github.com/HelloDHLyn/TwitDeck" target="_blank">GitHub</a></p>
     </div>
 
     <div class="chat pannel" v-for="channelId in channelIds" v-bind:key="channelId">
@@ -88,8 +88,9 @@ body {
   color: rgb(218, 216, 222);
   background-color: rgb(25, 23, 28);
   height: 100vh;
-  min-width: 100%;
   display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
 
   a {
     color: rgb(177, 157, 216);
@@ -98,6 +99,7 @@ body {
   .pannel {
     padding: 12px;
     background-color: rgb(14, 12, 19);
+    flex: 0 0 auto;
   }
 
   .menu.pannel {

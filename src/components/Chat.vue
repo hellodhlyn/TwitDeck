@@ -32,7 +32,10 @@ export default {
     };
   },
   mounted() {
-    this.client = new tmi.client({ channels: [this.channelId] });
+    this.client = new tmi.client({ 
+      channels: [this.channelId],
+      connection: { secure: true },
+    });
     this.client.on('connected', () => {
       this.messages.push({
         type: 'info',
@@ -83,7 +86,7 @@ export default {
 
 .chat-area {
   height: calc(100vh - 106px);
-  overflow: hidden scroll;
+  overflow: scroll;
   word-wrap: break-all;
 
   .message {
