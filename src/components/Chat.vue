@@ -2,6 +2,7 @@
   <div>
     <div class="header-area">
       <h3>Channel #{{ channelId }}</h3>
+      <a :href="'https://twitch.tv/' + channelId" target="_blank"><button>채널보기</button></a>
       <button @click="$emit('delete-pannel')">패널삭제</button>
     </div>
     <div class="chat-area">
@@ -9,9 +10,7 @@
         <p class="chat-message" v-if="message.type === 'chat'">
           <span :style="{ color: message.color }" class="username">{{ message.displayName }}</span> : {{ message.text }}
         </p>
-        <p class="info-message" v-else-if="message.type === 'info'">
-          {{ message.text }}
-        </p>
+        <p class="info-message" v-else-if="message.type === 'info'">{{ message.text }}</p>
       </div>
     </div>
   </div>
@@ -32,7 +31,7 @@ export default {
     };
   },
   mounted() {
-    this.client = new tmi.client({ 
+    this.client = new tmi.client({
       channels: [this.channelId],
       connection: { secure: true },
     });

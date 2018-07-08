@@ -3,7 +3,7 @@
     <div class="menu pannel">
       <div class="menu-item" @click="modal.settings.isActive = true">
         <i class="fas fa-cogs"></i>
-        <p>패널설정</p>
+        <p>설정</p>
       </div>
     </div>
 
@@ -20,6 +20,9 @@
     <!-- 설정 모달 -->
     <div id="settings-modal" v-bind:class="['modal', modal.settings.isActive ? 'active' : '']">
       <div class="modal-content">
+        <div class="close-btn" @click="modal.settings.isActive = false">
+          <i class="fas fa-times"></i>
+        </div>
         <h2>패널 추가</h2>
         <input text="text" placeholder="채널 ID" v-model="input.channelToAdd">
         <button type="button" @click="addPannel()">추가</button>
@@ -54,11 +57,20 @@ export default Vue.extend({
     addPannel() {
       this.channelIds.push(this.input.channelToAdd);
       this.modal.settings.isActive = false;
+      this.input.channelToAdd = '';
+      this.updateLocalStorage();
     },
     deletePannel(channelId) {
       const index = this.channelIds.indexOf(channelId);
       this.channelIds.splice(index, 1);
+      this.updateLocalStorage();
     },
+    updateLocalStorage() {
+      this.$localStorage.set('twitdeck.channelIds', this.channelIds, Array);
+    },
+  },
+  created() {
+    this.channelIds = this.$localStorage.get('twitdeck.channelIds', [], Array);
   },
 });
 </script>
@@ -174,7 +186,7 @@ body {
       margin: 10vh auto;
       width: 480px;
 
-      h2 {
+      h1, h2 {
         margin: 0 0 12px 0;
         font-weight: normal;
       }
@@ -196,6 +208,14 @@ body {
       }
 
       button:hover {
+        cursor: pointer;
+      }
+
+      .close-btn {
+        float: right;
+      }
+
+      .close-btn:hover {
         cursor: pointer;
       }
     }
