@@ -33,7 +33,7 @@
 
 <script>
 import Vue from 'vue';
-import Chat from './components/Chat';
+import Chat from './components/Chat.vue';
 
 export default Vue.extend({
   name: 'App',
